@@ -1,0 +1,51 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "aseName": {
+            "type": "string"
+        },
+        "location": {
+            "type": "string"
+        },
+        "kind": {
+            "type": "string"
+        },
+        "internalLoadBalancingMode": {
+            "type": "string"
+        },
+        "subnet_id": {
+            "type": "string"
+        },
+        "subnet": {
+            "type": "string"
+        },
+        "aseResourceGroupName": {
+            "type": "string"
+        }
+    }, 
+    "resources": [
+        {
+            "apiVersion": "2019-08-01",
+            "type": "Microsoft.Web/hostingEnvironments",
+            "name": "[parameters('aseName')]",
+            "kind": "[parameters('kind')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "name": "[parameters('aseName')]",
+                "location": "[parameters('location')]",
+                "internalLoadBalancingMode": "[parameters('internalLoadBalancingMode')]",
+                "virtualNetwork": {
+                    "Id": "[parameters('subnet_id')]",
+                    "subnet": "[parameters('subnet')]"
+                }
+            }
+        }
+    ],
+    "outputs": {
+        "id" : {
+            "type": "string",
+            "value": "[resourceId(parameters('aseResourceGroupName'), 'Microsoft.Web/hostingEnvironments', parameters('aseName'))]"
+        }
+    }
+}
