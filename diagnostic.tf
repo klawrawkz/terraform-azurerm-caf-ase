@@ -1,6 +1,6 @@
 module "diagnostics" {
     source  = "aztfmod/caf-diagnostics/azurerm"
-    version = "0.1.0"
+    version = "1.0.0"
 
     name                              = "${local.ase_name}-diag"
     resource_id                       = lookup(azurerm_template_deployment.ase.outputs, "id")
